@@ -1,4 +1,3 @@
-
 import gdown
 import pandas as pd
 import numpy as np
@@ -12,35 +11,36 @@ import tarfile
 import shutil
 import typing
 from compress_pickle import load
-
 from ngafiddataset.dataset.utils import *
-
-
 
 class NGAFID_Dataset_Downloader:
 
     ngafid_urls = {
-        "all_flights": "https://drive.google.com/file/d/1xBfl9QCctDGuGc8IwoQGswxYJcmGuA-O/view?usp=sharing",
-        "2days": "https://drive.google.com/file/d/1LENbTxM5YeKhPbat0ZtXsKy1ncA_22Co/view?usp=sharing",
+        "all_flights": "https://drive.google.com/uc?id=1xBfl9QCctDGuGc8IwoQGswxYJcmGuA-O",
+        "2days": "https://drive.google.com/uc?id=1LENbTxM5YeKhPbat0ZtXsKy1ncA_22Co"
     }
 
     @classmethod
-    def download(cls, name : str, destination:str = '', extract = True):
-
+    def download(cls, name: str, destination: str = '', extract=True):
         assert name in cls.ngafid_urls.keys()
 
         url = cls.ngafid_urls[name]
-        output =  os.path.join(destination, "%s.tar.gz" % name)
+        output = os.path.join(destination, "%s.tar.gz" % name)
 
         if not os.path.exists(output):
+            logger.info(f"Downloading {name} from {url}")
             gdown.download(url, output, quiet=False)
 
         if extract:
             logger.info('Extracting File')
-            _ = tarfile.open(output).extractall(destination)
+            try:
+                with tarfile.open(output, 'r:*') as tar:
+                    tar.extractall(destination)
+            except tarfile.ReadError as e:
+                logger.error(f"Extraction failed: {e}")
+                raise e
 
         return name, destination
-
 
 class NGAFID_Dataset_Manager(NGAFID_Dataset_Downloader):
 
