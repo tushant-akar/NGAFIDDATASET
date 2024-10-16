@@ -35,7 +35,7 @@ class NGAFID_Dataset_Downloader:
             logger.info('Extracting File')
             try:
                 with tarfile.open(output, 'r:*') as tar:
-                    tar.extractall(destination)
+                    tar.extractall(output)
             except tarfile.ReadError as e:
                 logger.error(f"Extraction failed: {e}")
                 raise e
