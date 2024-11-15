@@ -16,8 +16,8 @@ from ngafiddataset.dataset.utils import *
 class NGAFID_Dataset_Downloader:
 
     ngafid_urls = {
-        "all_flights": "https://drive.google.com/uc?id=1POKFxY38M9KSwWX7t21FwBWteNKmhEk",
-        "2days": "https://drive.google.com/uc?id=12EgwxuJAPab_7ZIZBy2gGXJ4vlQMr-vt"
+        "all_flights": "https://drive.google.com/uc?id=1SfewoPufW_wzmZzZkIFSZzWnVPJRU26B",
+        "2days": "https://drive.google.com/uc?id=1Q0_LCnCwQ24uE1FSh31jzS85QMw668_v"
     }
 
     @classmethod
